@@ -4,6 +4,7 @@
   "description": "Projeto base da Aula 05 - Testes Unitarios com Jest",
   "scripts": {
     "test": "jest"
+    
   },
   "devDependencies": {
     "jest": "^29.7.0"
