@@ -1,9 +1,8 @@
 import { test, expect } from "@playwright/test";
-import Test from "supertest/lib/test";
 
 test.beforeEach(async ({ page, request }) => {
   const resposta = await request.post("http://localhost:3000/__reset");
-  expect(resposta.status().toBe(204));
+  expect(resposta.status()).toBe(204);
   await page.goto("/");
 });
 
@@ -18,18 +17,18 @@ test("Cadastra um produto novo", async ({ page }) => {
   await page.getByLabel("Preco").fill("7");
   await page.getByRole("button", { name: "Cadastrar" }).click();
 
-  const linha = page.getByRole("row", { name: /kibe/ });
+  const linha = page.getByRole("row", { name: /Kibe/ });
   await expect(linha).toBeVisible();
   await expect(linha).toContainText("R$ 7,00");
 });
 
 test("Mostra erro ao cadastrar sem preenchimento", async ({ page }) => {
   await page.getByRole("button", { name: "Cadastrar" }).click();
-  await expect(page.getByText("Nome e preco sao obrigatorios ")).toBeVisible();
+  await expect(page.getByText("Nome e preco sao obrigatorios")).toBeVisible();
 });
 
 test("Remove um produto", async ({ page }) => {
   const linha = page.getByRole("row", { name: /Pastel/ });
-  await linha.getByRole("button", {name: "Remover"}).click()
-  await expect(linha).toHaveCount(0)
+  await linha.getByRole("button", { name: "Remover" }).click();
+  await expect(linha).toHaveCount(0);
 });
